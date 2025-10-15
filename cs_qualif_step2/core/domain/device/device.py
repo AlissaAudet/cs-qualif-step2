@@ -1,4 +1,12 @@
+from logging import raiseExceptions
+
+import app
+import hashlib
+import re
+
+from cs_qualif_step2.config.get_device_service import device_repository
 from cs_qualif_step2.core.domain.device.device_id import DeviceId
+from cs_qualif_step2.core.domain.device.devicefactory import DeviceFactory
 
 class Device:
     def __init__(self,
@@ -25,3 +33,6 @@ class Device:
 
     def get_mac_address(self) -> str:
         return self.__macAddress
+
+
+
