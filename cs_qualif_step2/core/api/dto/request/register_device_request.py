@@ -47,36 +47,7 @@ def create_device(macAddress: str,
         location=location,
         timezone=timezone
     )
-    Device = DeviceFactory().create_device(
-        device_id=device_id,
-        macAddress=macAddress,
-        model=model,
-        firmwareVersion=firmwareVersion,
-        serialNumber=serialNumber,
-        displayName=displayName,
-        location=location,
-        timezone=timezone
-    )
-    Device = DeviceFactory().create_device(
-        device_id=device_id,
-        macAddress=macAddress,
-        model=model,
-        firmwareVersion=firmwareVersion,
-        serialNumber=serialNumber,
-        displayName=displayName,
-        location=location,
-        timezone=timezone
-    )
-    Device = DeviceFactory().create_device(
-        device_id=device_id,
-        macAddress=macAddress,
-        model=model,
-        firmwareVersion=firmwareVersion,
-        serialNumber=serialNumber,
-        displayName=displayName,
-        location=location,
-        timezone=timezone
-    )
+
     if device_repository.find_by_mac_address(macAddress=macAddress) is not None:
         device_repository.save(Device)
     else:
