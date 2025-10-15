@@ -4,7 +4,8 @@ import app
 from pydantic import BaseModel, validator
 
 from cs_qualif_step2.config.get_device_service import device_repository
-from cs_qualif_step2.core.domain.device.device import DeviceWithSameMacAddressException, invalidMacAddressException
+from cs_qualif_step2.core.api.handler.invalid_input_exception_handler import invalid_input_exception_handler
+from cs_qualif_step2.core.domain.device.exception import DeviceWithSameMacAddressException, invalidMacAddressException, invalid_input_exception
 from cs_qualif_step2.core.domain.device.device_id import DeviceId
 from cs_qualif_step2.core.domain.device.devicefactory import DeviceFactory
 
@@ -85,6 +86,9 @@ def create_device(macAddress: str,
         raise invalidMacAddressException("400 Bad Request - Format MAC address invalide (doit être XX:XX:XX:XX:XX:XX)")
 
     if not all([macAddress, model, firmwareVersion, serialNumber, location, timezone]):
-        raise ValueError("400 Bad Request - Champs obligatoires manquants (macAddress, model, firmwareVersion, serialNumber, location, timezone)")
+        raise invalid_input_exception("400 Bad Request - Champs obligatoires manquants (macAddress, model, firmwareVersion, serialNumber, location, timezone)")
 
+    if not all([isinstance(field, str) for field in [macAddress, model, firmwareVersion, serialNumber, displayName, location, timezone]]):
+        raise invalid_input_exception("400 Bad Request - Valeurs vides ("", null) dans les champs obligatoires")
     return {"message": "Device est enregistré", "device": Device.get_device_id()}
+
